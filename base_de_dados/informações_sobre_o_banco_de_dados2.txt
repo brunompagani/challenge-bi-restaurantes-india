@@ -1,0 +1,61 @@
+Descrição:
+Planilha do google sheets que contém informações sobre código dos países e seus respectivos nomes.
+Colunas:
+● codigo_paises
+avaliacoes_restaurantes
+
+● file1.json
+● file2.json
+● file3.json
+● file4.json
+● file5.json
+
+Descrição:
+
+Coleção de arquivos de extensão do tipo json que possuem colunas, com informações sobre os restaurantes, coletados através de uma API de um aplicativo chamado Zomato.
+Colunas:
+● Restaurant Id: ID exclusivo de cada restaurante em várias cidades do mundo
+● Restaurant Name: Nome do restaurante
+● Country Code: País em que o restaurante está localizado
+● City: Cidade em que o restaurante está localizado
+● Address: Endereço do restaurante
+● Locality: Localização na cidade
+● Locality Verbose: Descrição detalhada da localidade
+● Longitude: Coordenada de longitude da localização do restaurante
+● Latitude: Coordenada de latitude da localização do restaurante
+● Cuisines: Cozinhas oferecidas pelo restaurante
+● Average Cost for two: Custo para dois pessoas em diferentes moedas
+● Currency: Moeda do país
+● Has Table booking: Tem Reserva de mesa
+● Has Online delivery: Tem Entrega online
+● Is delivering: Está a entregar
+● Switch to order menu: Mudar para o menu de encomendas
+● Price range: faixa de preço da comida
+● Aggregate Rating:  Classificação agregada (de 0 a 5)
+● Rating color: dependendo da cor da classificação média
+● Rating text: texto com base na classificação da classificação
+● Votes: Número de classificações feitas por pessoas
+
+Checklist of successfully extracted data:
+
+● OK Restaurant Id
+● OK Restaurant Name
+● OK Country Code
+● OK City
+● OK Address
+● OK Locality
+● OK Locality Verbose
+● OK Longitude
+● OK Latitude
+● OK Cuisines
+● OK Average Cost for two
+● OK Currency
+● OK Has Table booking
+● OK Has Online delivery
+● OK Is delivering
+● OK Switch to order menu
+● OK Price range
+● OK Aggregate Rating
+● OK Rating color
+● OK Rating text
+● OK Votes
