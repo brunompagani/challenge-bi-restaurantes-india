@@ -3,7 +3,7 @@ USE ROLE ACCOUNTADMIN;
 ---- Sincronizar time zone com horário de São Paulo ----
 ALTER SESSION SET timezone = 'America/Sao_Paulo';
 
----- Realizando UPSERT de novos valores na tabela com aqruivos subsequentes ----
+---- Realizando UPSERT de novos valores na tabela com arquivos subsequentes ----
 
 // Alter this variable to merge new file
 SET FILE_NAME_PATTERN = '.*file5.json';

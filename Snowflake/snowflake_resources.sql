@@ -18,7 +18,11 @@ CREATE OR REPLACE DATABASE rest_india;
 USE rest_india;
 
 ---- Criando Storage Integration para acessar arquivos no Bucket S3 ----
+
 USE ROLE ACCOUNTADMIN;
+
+--> Nesse momento eu criei um "Role" na AWS com permissões AmazonS3FullAccess
+--> Peguei o ARN usado para criar o objeto de Storage Integration
 
 CREATE OR REPLACE STORAGE INTEGRATION semana2_s3_si
     TYPE = EXTERNAL_STAGE
@@ -29,3 +33,5 @@ CREATE OR REPLACE STORAGE INTEGRATION semana2_s3_si
 COMMENT = 'Storage Integration Object for Alura BI Challenge Week 2';
 
 DESC INTEGRATION semana2_s3_si;
+
+--> Com essa descrição é possível pegar o STORAGE_AWS_IAM_USER_ARN e STORAGE_AWS_EXTERNAL_ID para adicionar ao Role na AWS
