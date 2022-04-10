@@ -5,11 +5,11 @@ ALTER SESSION SET timezone = 'America/Sao_Paulo';
 
 ---- Realizando UPSERT de novos valores na tabela com arquivos subsequentes ----
 
-// Alter this variable to merge new file
+--> Alter this variable to merge new file
 SET FILE_NAME_PATTERN = '.*file5.json';
 
 
-// Create Temp Table as staging area
+--> Create Temp Table as staging area
 CREATE OR REPLACE TEMPORARY TABLE rest_india.public.json_parsed
 AS SELECT 
         rt.value:restaurant:R:res_id::INT AS rest_id,
@@ -38,22 +38,22 @@ AS SELECT
         @rest_india.public.restaurante_st (PATTERN => $FILE_NAME_PATTERN) stg,
         lateral flatten(input => stg.$1:restaurants) rt;
 
-// Deduplicate table
+--> Deduplicate table
 CREATE OR REPLACE TEMPORARY TABLE rest_india.public.json_parsed_dedup       
 AS SELECT 
     DISTINCT *
 FROM json_parsed;
 
-// Drop first table
+--> Drop first temp table
 DROP TABLE rest_india.public.json_parsed;
 
-// Check for rest_id duplicates,,
+--> Check for rest_id duplicates,,,
 -- SELECT rest_id, COUNT(1) AS num_records
 -- FROM rest_india.public.json_parsed_dedup
 -- GROUP BY rest_id
 -- ORDER BY num_records DESC;
 
-// Execute MERGE operation
+--> Execute MERGE operation
 MERGE INTO rest_india.public.restaurant tgt
 USING rest_india.public.json_parsed_dedup src
 ON tgt.rest_id = src.rest_id
@@ -84,6 +84,7 @@ WHEN NOT MATCHED THEN INSERT
     src.rating_color, src.rating_text, src.num_of_votes
 );
 
--- DROP TABLE rest_india.public.json_parsed_dedup;
+--> Drop second temp table
+DROP TABLE rest_india.public.json_parsed_dedup;
 
 -- SELECT * FROM rest_india.public.restaurant ORDER BY meta_updated_ts;

@@ -14,6 +14,7 @@ CREATE OR REPLACE STAGE rest_india.public.restaurante_st
 DESC STAGE rest_india.public.restaurante_st;
 
 LIST @rest_india.public.restaurante_st;
+--> inicialmente apenas o file1.json está na Bucket S3
 
 ---- Visualizando json inicial ----
 SELECT 
