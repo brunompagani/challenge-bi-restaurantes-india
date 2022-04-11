@@ -20,6 +20,8 @@ def moedas_em_dolar(moedas_dict):
         yahoo = yahoo.iloc[-1,:]
         yahoo.index = [ x[:3] for x in yahoo.index ]
         yahoo.name = 'usd'
+
+        print('Dados extraídos do Yahoo! Finance.')
     except:
         print("Houve falha na extração dos câmbios")
 
@@ -89,6 +91,10 @@ if __name__ == '__main__':
     # salvar_localmente(currency_table)
 
     ### Salvando no Bucket S3 ###
-    upar_no_s3(currency_table, 's3://challenge-bi-s3/Semana-2/currency', s3_access_key_id, s3_secret_access_key)
-
+    upar_no_s3(
+            currency_table,
+            's3://challenge-bi-s3/Semana-2/currency',
+            s3_access_key_id, s3_secret_access_key)
+    ### Os dados devem aparecer no Snowflake automaticamente se ###
+    ### o Snowpipe estiver corretamente setado ###
 
