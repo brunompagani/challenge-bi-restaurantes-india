@@ -21,9 +21,9 @@ AS
         res.longitude,
         res.latitude,
         res.cuisines,
-        (res.avg_cost_for_two * cur.usd) AS avg_cost_for_two_usd,
-        (res.avg_cost_for_two * cur.brl) AS avg_cost_for_two_brl,
-        (res.avg_cost_for_two * cur.eur) AS avg_cost_for_two_eur,
+        ROUND(res.avg_cost_for_two * cur.usd, 2) AS avg_cost_for_two_usd,
+        ROUND(res.avg_cost_for_two * cur.brl, 2) AS avg_cost_for_two_brl,
+        ROUND(res.avg_cost_for_two * cur.eur, 2) AS avg_cost_for_two_eur,
         cur.code AS original_currency,
         res.has_table_booking,
         res.has_online_delivery,
@@ -59,3 +59,4 @@ ALTER TASK rest_india.public.currency_refresh_task RESUME;
 -- SHOW TASKS in rest_india.public;
 
 -- SELECT * FROM rest_india_ds.public.restaurant_ds;
+
