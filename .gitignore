@@ -1,3 +1,4 @@
-my_hidden_heys.txt
-restaurantes-índia-20220224T170957Z
+secrets.py
 .DS_Store
+.env
+extract/__pycache__
