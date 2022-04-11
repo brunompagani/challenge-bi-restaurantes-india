@@ -7,7 +7,10 @@ ALTER SESSION SET timezone = 'America/Sao_Paulo';
 ---- Criando objeto File Format considerando array externo ----
 CREATE OR REPLACE FILE FORMAT rest_india.public.json_ff
     TYPE = JSON
-    STRIP_OUTER_ARRAY = TRUE;
+    STRIP_OUTER_ARRAY = TRUE
+    NULL_IF = ('\\N', 'NULL', '', ' ');
+    
+DESC FILE FORMAT json_ff;
 
 ---- Criando stage object que acessa a pasta no bucket S3 ----
 CREATE OR REPLACE STAGE rest_india.public.restaurante_st
@@ -63,10 +66,10 @@ INSERT INTO rest_india.public.restaurant (
         rt.value:restaurant:location:address::STRING AS address,
         rt.value:restaurant:location:locality::STRING AS locality,
         rt.value:restaurant:location:locality_verbose::STRING AS locality_verbose,
-        rt.value:restaurant:location:longitude::FLOAT AS longitude,
-        rt.value:restaurant:location:latitude::FLOAT AS latitude,
+        NULLIF(rt.value:restaurant:location:longitude::FLOAT, 0) AS longitude,
+        NULLIF(rt.value:restaurant:location:latitude::FLOAT, 0) AS latitude,
         rt.value:restaurant:cuisines::STRING AS cuisines,
-        rt.value:restaurant:average_cost_for_two::INT AS avg_cost_for_two,
+        NULLIF(rt.value:restaurant:average_cost_for_two::INT, 0) AS avg_cost_for_two,
         rt.value:restaurant:currency::STRING AS currency,
         rt.value:restaurant:has_table_booking::INT::BOOLEAN AS has_table_booking,
         rt.value:restaurant:has_online_delivery::INT::BOOLEAN AS has_online_delivery,
@@ -84,6 +87,11 @@ INSERT INTO rest_india.public.restaurant (
 
 ---- See table ----
 SELECT * FROM rest_india.public.restaurant;
+
+SELECT 
+    COUNT_IF(latitude = 0) AS zero_lat,
+    COUNT_IF(longitude = 0) AS zero_long
+FROM rest_india.public.restaurant;
 
 ---- Check for rest_id duplicates ----
 SELECT rest_id, COUNT(1) AS num_records
