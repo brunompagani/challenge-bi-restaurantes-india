@@ -63,6 +63,7 @@ if __name__ == '__main__':
 
     ### Dicionário de moedas na base e seus respectivos códigos ###
     moedas_dict = {
+        'Rs.' : 'INR',
         'R$':'BRL',
         '$' : 'USD',
         '£' : 'GBP',
