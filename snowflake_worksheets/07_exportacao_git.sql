@@ -41,6 +41,14 @@ FROM rest_india.public.rest_cuisine
     MAX_FILE_SIZE = 20000000
     HEADER = TRUE;
     
+---- extraindo tabela currency
+COPY INTO @rest_india.public.silver_extract_st/currency.csv
+FROM rest_india.public.currency
+    OVERWRITE = TRUE
+    SINGLE = TRUE
+    MAX_FILE_SIZE = 20000000
+    HEADER = TRUE;
+    
 ---- Criando external stage para extração das tabelas gold ----
 CREATE OR REPLACE STAGE rest_india.public.gold_extract_st
     URL = 's3://challenge-bi-s3/Semana-2/gold_extract/'
