@@ -11,7 +11,7 @@ CREATE OR REPLACE FILE FORMAT rest_india.public.csv_extract_ff
     
 DESC FILE FORMAT rest_india.public.csv_extract_ff;
 
----- Criando external stage para extração
+---- Criando external stage para extração das tabelas silver ----
 CREATE OR REPLACE STAGE rest_india.public.silver_extract_st
     URL = 's3://challenge-bi-s3/Semana-2/silver_extract/'
     STORAGE_INTEGRATION = semana2_s3_si
@@ -36,6 +36,21 @@ FROM rest_india.public.country
 ---- extraindo tabela rest_cuisine
 COPY INTO @rest_india.public.silver_extract_st/rest_cuisine.csv
 FROM rest_india.public.rest_cuisine
+    OVERWRITE = TRUE
+    SINGLE = TRUE
+    MAX_FILE_SIZE = 20000000
+    HEADER = TRUE;
+    
+---- Criando external stage para extração das tabelas gold ----
+CREATE OR REPLACE STAGE rest_india.public.gold_extract_st
+    URL = 's3://challenge-bi-s3/Semana-2/gold_extract/'
+    STORAGE_INTEGRATION = semana2_s3_si
+    FILE_FORMAT = rest_india.public.csv_extract_ff;
+
+
+---- extraindo tabela restaurant_ds ----
+COPY INTO @rest_india.public.gold_extract_st/restaurant_ds.csv
+FROM rest_india_ds.public.restaurant_ds
     OVERWRITE = TRUE
     SINGLE = TRUE
     MAX_FILE_SIZE = 20000000
