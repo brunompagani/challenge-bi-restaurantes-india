@@ -7,7 +7,8 @@ CREATE OR REPLACE FILE FORMAT rest_india.public.csv_extract_ff
     TYPE = CSV
     FIELD_DELIMITER = ','
     FIELD_OPTIONALLY_ENCLOSED_BY = '"'
-    COMPRESSION = NONE;
+    COMPRESSION = NONE
+    NULL_IF='';
     
 DESC FILE FORMAT rest_india.public.csv_extract_ff;
 
@@ -40,7 +41,7 @@ FROM rest_india.public.rest_cuisine
     SINGLE = TRUE
     MAX_FILE_SIZE = 20000000
     HEADER = TRUE;
-    
+        
 ---- extraindo tabela currency
 COPY INTO @rest_india.public.silver_extract_st/currency.csv
 FROM rest_india.public.currency
@@ -59,6 +60,14 @@ CREATE OR REPLACE STAGE rest_india.public.gold_extract_st
 ---- extraindo tabela restaurant_ds ----
 COPY INTO @rest_india.public.gold_extract_st/restaurant_ds.csv
 FROM rest_india_ds.public.restaurant_ds
+    OVERWRITE = TRUE
+    SINGLE = TRUE
+    MAX_FILE_SIZE = 20000000
+    HEADER = TRUE;
+
+---- extraindo tabela rest_cuisine_ds ----
+COPY INTO @rest_india.public.gold_extract_st/rest_cuisine_ds.csv
+FROM rest_india_ds.public.rest_cuisine_ds
     OVERWRITE = TRUE
     SINGLE = TRUE
     MAX_FILE_SIZE = 20000000

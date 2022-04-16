@@ -1,8 +1,8 @@
 USE rest_india_ds.public;
 USE ROLE ACCOUNTADMIN;
 
--- Criando procedure que atualiza os câmbios --
-CREATE OR REPLACE PROCEDURE rest_india.public.refresh_rest_india_ds_procedure ()
+-- Criando procedure que cria/atualiza restaurant_ds --
+CREATE OR REPLACE PROCEDURE rest_india.public.refresh_restaurant_ds_procedure ()
     RETURNS STRING
     LANGUAGE SQL
 AS
@@ -42,21 +42,23 @@ AS
     RETURN 'Tabela rest_india_ds atualizada com sucesso';
     END;
 
--- Criando Task que atualiza tabela rest_india_ds após atualização diária da tabela currency  --
+-- Criando Task que atualiza tabela restaurant_ds após atualização diária da tabela currency  --
 ALTER TASK rest_india.public.currency_refresh_task SUSPEND;
 
-CREATE OR REPLACE TASK rest_india.public.refresh_rest_india_ds_task
+CREATE OR REPLACE TASK rest_india.public.refresh_restaurant_ds_task
     WAREHOUSE = COMPUTE_WH
     AFTER rest_india.public.currency_refresh_task
-AS CALL refresh_rest_india_ds_procedure();
+AS CALL refresh_restaurant_ds_procedure();
 
-ALTER TASK rest_india.public.refresh_rest_india_ds_task RESUME;
+ALTER TASK rest_india.public.refresh_restaurant_ds_task RESUME;
 ALTER TASK rest_india.public.currency_refresh_task RESUME;
 
--- ALTER TASK rest_india.public.refresh_rest_india_ds_task SUSPEND;
+-- ALTER TASK rest_india.public.refresh_restaurant_ds_task SUSPEND;
 
 -- SHOW PROCEDURES in rest_india.public;
 -- SHOW TASKS in rest_india.public;
 
 -- SELECT * FROM rest_india_ds.public.restaurant_ds;
+
+-- CALL rest_india.public.refresh_restaurant_ds_procedure();
 
