@@ -72,3 +72,11 @@ FROM rest_india_ds.public.rest_cuisine_ds
     SINGLE = TRUE
     MAX_FILE_SIZE = 20000000
     HEADER = TRUE;
+    
+---- extraindo tabela rest_per_city_ds ----
+COPY INTO @rest_india.public.gold_extract_st/rest_per_city_ds.csv
+FROM rest_india_ds.public.rest_per_city_ds
+    OVERWRITE = TRUE
+    SINGLE = TRUE
+    MAX_FILE_SIZE = 20000000
+    HEADER = TRUE;
