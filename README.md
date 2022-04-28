@@ -21,6 +21,7 @@ Análise de Dados | ⭐️ ⭐️
 Criação de Dashboards em Google Data Studio | ⭐️ ⭐️ ⭐️ 
 
 ![picture alt](https://github.com/brunompagani/challenge-bi-restaurantes-india/blob/b7e10d0bae0ff428d483e542cd5cb3c318dc91be/git%20resouces/arquitetura-final.png)
+###### Fonte: Autoria própria
 
 ## Resumo
 
@@ -55,9 +56,11 @@ Os três estados que os dados assumem antes de serem consumidos podem ser vistos
 
 ## Snowflake
 
-## AWS
+Os worksheets com todos os códigos utilizados para criação dos recursos, leitura e transformação dos dados e o agendamento da tarefas podem ser vistos na pasta "snowflake_worksheets".
 
-## Python
+## AWS
+ 
+Buckets S3 da AWS foram utilizados para armazenar o Bronze Stage da minha arquitetura e conectados ao Snowflake, possibilitando o processamento desses dados para tabelas estruturadas (Silver stage) e posterior transformação para tabelas prontas para serem consumidas pela ferramenta de visualização escolhida.
 
 ## Google Data Studio
 
