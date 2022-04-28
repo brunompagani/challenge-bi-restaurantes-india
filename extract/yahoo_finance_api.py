@@ -96,6 +96,4 @@ if __name__ == '__main__':
             currency_table,
             's3://challenge-bi-s3/Semana-2/currency',
             s3_access_key_id, s3_secret_access_key)
-    ### Os dados devem aparecer no Snowflake automaticamente se ###
-    ### o Snowpipe estiver corretamente setado ###
-
+    ### Os dados devem aparecer no Snowflake no horário que a task agendada no Snowflake rodar ###
