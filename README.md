@@ -43,6 +43,8 @@ Os pela própria empresa vieram em formato .json sem qualquer tipo de tratamento
 
 Para obtenção de cotações atualizadas das diversas moedas na base foi ultizado um script em Python que obtêm esses valores da API do Yahoo! Finance e os envia para um Bucket S3 da AWS e é lido e utilizado diariamente, de forma automática no Snowflake.
 
+O script pode ser consultado na pasta "extract".
+
 #### Principais Vieses da Base
 
 Reconhecer os vieses em uma base de dados é uma habilidade necessária para qualquer um que trabalha com dados, nesse caso os principais vieses percebidos da base são:
