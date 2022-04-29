@@ -56,6 +56,24 @@ Reconhecer os vieses em uma base de dados é uma habilidade necessária para qua
 
 Os três estados que os dados assumem antes de serem consumidos podem ser vistos na pasta base de dados, **essa pasta foi criada apenas para facilitar a visualização da estrutura final do Data Warehouse aqui no GitHub**, os dados da pasta bronze foram originalmente upados no Bucket S3 da AWS e os da pasta silver e gold foram gerados e armazenados no Snowflake.
 
+### Bronze
+
+A arquitetura toda do Data Warehouse (ou Data Lakehouse, se preferir) se inicia com o armazenamento em um **Bucket S3 da AWS**, os dados são extraídos e enviados para uma pasta específica ali dentro, como em um Data Lake, mas **são acessados e lidos através do Snowflake**, no que é lá dentro chamado de um External Stage. Dessa forma, os arquivos JSON são lidos usando uma linguagem SQL adaptada, muito simples, sem qualquer criação de tabela ou banco de dados. Essa parte da arquitetura é chamada de Bronze Stage.
+
+### Silver
+
+Os arquivos são então processados para um formato tabular e colocados em um banco de dados dentro do Snowflake. O objetivo do processamento é que não entrem dados duplicados ou em formatos esquisitos, mas não é realizado de forma alguma transformações que alterem a granuralidade. Esses dados já são considerados úteis para análise, mas não são necessariamente otimizados para ela.
+
+Cabe citar que na minha solução específica a extração dos dados acontece diariamente, portanto o processamento dos dados para a camada Silver acontece com essa mesma frequência. Esse agendamento acontce a partir das tasks do Snowflake que podem ser vistas em código na pasta "snowflake_worksheets"
+
+### Gold
+
+Como no estágio Silver a granularidade já está na menor possível o estágio gold não têm mais essa restrição, o grande objetivo é que esse estágio possua uma estrutura que facilite a análise em ferramentas de BI, ou até apresente dados em uma granularidade específica útil para análise. No meu caso as tabela foram colocadas em um tabelão, tendo em vista a maior aptidão do Data Studio em lidar com esse formato.
+
+Para ávidos em Datawarehouse, eu não utilizei uma modelagem Star Schema, afinal essa modelagem não é a ideal para a proposta da minha ferramenta final de análise. Em outros projetos pretendo demonstrar meus conhecimentos em modelagem dimensional também.
+
+As tabelas da camada gold também são atualizadas diariamente, mas estão diretamente ligadas as tasks da camada Silver, evitando assim que elas aconteçam sem uma de suas depedências ter sucedido.
+
 ## Snowflake
 
 Os worksheets com todos os códigos utilizados para criação dos recursos, leitura e transformação dos dados e o agendamento da tarefas podem ser vistos na pasta "snowflake_worksheets".
